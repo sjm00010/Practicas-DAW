@@ -19,5 +19,32 @@
         <max-pool-size>10</max-pool-size>
         <min-pool-size>5</min-pool-size>
     </data-source>
-
+    
+    <session-config>
+        <session-timeout> 30 </session-timeout> <!-- tiempo de inactividad -->
+        <cookie-config>
+            <http-only>true</http-only> <!-- evita acceso desde javascript -->
+            <secure>false</secure> <!-- true para forzar enviar por conexión segura TLS-->
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode> <!-- desactiva id de sesión en urls -->
+    </session-config>
+    
+    <!-- Roles de usuarios que se van a utilizar en las reglas -->
+    <security-role>
+        <role-name>USUARIOS</role-name>
+    </security-role>
+    <security-role>
+        <role-name>ADMINISTRADORES</role-name>
+    </security-role>
+    <!-- Reglas de control de acceso: security-constraint, puede haber varias -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Usuarios identificados</web-resource-name>
+            <url-pattern>/libros/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>USUARIOS</role-name>
+            <role-name>ADMINISTRADORES</role-name>
+        </auth-constraint>
+    </security-constraint>
 </web-app>

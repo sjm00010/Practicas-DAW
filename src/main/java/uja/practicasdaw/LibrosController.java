@@ -14,6 +14,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import uja.DAOs.LibrosDAOJpa;
 import uja.beans.Libro;
 
@@ -29,6 +31,12 @@ public class LibrosController implements Serializable {
 
     @Inject
     private LibrosDAOJpa librosDAO;
+
+    @Inject
+    Preferencias preferencias;
+    
+    @Inject
+    HttpServletRequest request; //needed for logout
 
     //View-Model
     private Libro libro;
@@ -66,10 +74,12 @@ public class LibrosController implements Serializable {
     public void recupera() {
         logger.info("Recuperando libro " + libro.getISBN());
         libro = librosDAO.buscaId(libro.getISBN());
+        preferencias.setUltimoLibro(libro.getTitulo());
     }
 
     public void recupera(String isbn) {
         libro = librosDAO.buscaId(isbn);
+        preferencias.setUltimoLibro(libro.getTitulo());
     }
 
     public String crea() {
@@ -77,17 +87,17 @@ public class LibrosController implements Serializable {
         librosDAO.crea(libro);
         return "detalle?faces-redirect=true&isbn=" + libro.getISBN();
     }
-    
+
     public String guarda() {
         logger.info("Guardando libro");
         librosDAO.guarda(libro);
         return "detalle?faces-redirect=true&isbn=" + libro.getISBN();
     }
-    
+
     public String detalle() {
         return "libros/detalle?faces-redirect=true&isbn=" + busqueda;
     }
-    
+
     public String editar(String isbn) {
         return "editar?isbn=" + isbn;
     }
@@ -95,7 +105,7 @@ public class LibrosController implements Serializable {
     public void reset() {
         libro = null;
     }
-    
+
     public String borra(String ISBN) {
         logger.info("Borrando libro");
         librosDAO.borra(ISBN);
@@ -122,14 +132,21 @@ public class LibrosController implements Serializable {
     public List<Libro> getSubLibros() {
         return subLibros;
     }
-    
-    public void buscaTitulo(String cadena){
+
+    public void buscaTitulo(String cadena) {
         subLibros.clear();
         for (Iterator<Libro> iterator = libros.iterator(); iterator.hasNext();) {
             Libro next = iterator.next();
-            if (next.getTitulo().contains(cadena)){
+            if (next.getTitulo().contains(cadena)) {
                 subLibros.add(next);
             }
         }
     }
+
+    public String logout() throws ServletException {
+        request.logout();
+        request.getSession().invalidate();
+        return "/index?faces-redirect=true"; //PRG
+    }
+
 }

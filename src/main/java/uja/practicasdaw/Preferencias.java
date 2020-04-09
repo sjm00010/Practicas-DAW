@@ -21,8 +21,9 @@ import javax.inject.Named;
 @SessionScoped
 public class Preferencias implements Serializable {
 
-    private final Logger logger = Logger.getLogger( Preferencias.class.getName() );
-    
+    private final Logger logger = Logger.getLogger(Preferencias.class.getName());
+
+    private String ultimoLibro = "";
     private String color;
     private final List colores = new ArrayList<String>();
 
@@ -39,8 +40,8 @@ public class Preferencias implements Serializable {
     public Preferencias(String color) {
         this.color = color;
     }
-    
-    public String cambiaColor(){
+
+    public String cambiaColor() {
         return null;
     }
 
@@ -66,6 +67,14 @@ public class Preferencias implements Serializable {
     public List getColores() {
 //        logger.info("Recuperando todos los colores");
         return colores;
+    }
+
+    public String getUltimoLibro() {
+        return ultimoLibro;
+    }
+
+    public void setUltimoLibro(String ultimoLibro) {
+        this.ultimoLibro = ultimoLibro;
     }
 
 }

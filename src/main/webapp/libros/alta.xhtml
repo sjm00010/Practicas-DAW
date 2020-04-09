@@ -26,8 +26,8 @@
             </div>
             <div>
                 <h:inputText id="fecha" value="#{ctrlLibros.libro.fecha}"
-                             p:type="date">
-                    <f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+                             p:placeholder="Año de publicación" required="true"
+                             requiredMessage="Introduzca un año">
                 </h:inputText>
 
                 <div><h:message for="fecha" /></div>

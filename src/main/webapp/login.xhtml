@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/templates/layout.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="content">
+        <h2>Identificación de usuario </h2>
+        <c:if test="#{param.error!=null}">
+            <p class="alert alert-danger">Error de autenticación</p>
+        </c:if>
+        <form action="j_security_check" method="POST">
+            <label>Usuario</label><input type="text" name="j_username"/>
+            <label>Clave</label><input type="password" name="j_password"/>
+            <input type="submit" value="Acceder"/>
+        </form>
+    </ui:define>
+
+</ui:composition>

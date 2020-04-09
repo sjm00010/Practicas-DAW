@@ -34,10 +34,9 @@ public class Libro {
             message = "La longitud del título debe estar entre{min} y {max} caracteres")
     private String titulo;
 
-    @Past(message = "La fecha debe ser anterior a hoy.")
-    @NotNull(message = "La fecha no puede estar vacía.")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    @Size(min = 4, max = 4,
+            message = "El año debe ser YYYY")
+    private String fecha;
 
     @Min(value=0 , message = "El precio debe ser igual o mayor a 0")
     private Integer precio;
@@ -49,7 +48,7 @@ public class Libro {
         precio = null;
     }
 
-    public Libro(String isbn, String titulo, Date fecha, Integer precio) {
+    public Libro(String isbn, String titulo, String fecha, Integer precio) {
         this.ISBN = isbn;
         this.titulo = titulo;
         this.fecha = fecha;
@@ -87,19 +86,14 @@ public class Libro {
     /**
      * @return the fecha
      */
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
-    }
-    
-    public String leerFecha() {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        return dateFormat.format(this.fecha);
     }
 
     /**
      * @param fecha the fecha to set
      */
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
