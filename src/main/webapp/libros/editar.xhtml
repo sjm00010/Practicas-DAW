@@ -3,8 +3,9 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../WEB-INF/templates/layout.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
         <h:head>
@@ -14,37 +15,43 @@
                 <f:viewAction action="#{ ctrlLibros.recupera() }"/>
             </f:metadata>
         </h:head>
-        
-        <h1>Alta de libro</h1>
+
+        <h1>Modificación de libro</h1>
         <!--<h:messages/>-->
-        <h:form>
-            <div>
-                <h:inputText id="isbn" value="#{ctrlLibros.libro.ISBN}"
-                             p:placeholder="ISBN" required="true"
-                             requiredMessage="El isbn es obligatorio"
-                             validatorMessage="ISBN válidos: 10 o 13 dígitos">
-                    <f:validateRegex pattern="\d{10}(\d{3})?" />
-                </h:inputText>
-                <div><h:message for="isbn" /></div>
-            </div>
-            <div>
-                <h:inputText id="titulo" value="#{ctrlLibros.libro.titulo}"
-                             p:placeholder="Titulo" required="true"
-                             requiredMessage="Introduzca un título">
-                    <f:validateLength minimum="3" maximum="25"/>
-                </h:inputText>
-                <div><h:message for="titulo" /></div>
-            </div>
-            <div>
-                <h:inputText id="anio" value="#{ctrlLibros.libro.fecha}"
-                             p:placeholder="Año de publicacion" required="true"
-                             requiredMessage="Introduzca un año de publicacion">
-                    <f:validateLength minimum="4" maximum="4"/>
-                </h:inputText>
-                <div><h:message for="anio" /></div>
-            </div>
-            <h:commandButton action="#{ctrlLibros.crea()}" value="Alta" />
-        </h:form>
+        <p:panel>
+            <h:form>
+                <div>
+                    <h:inputText id="isbn" value="#{ctrlLibros.libro.ISBN}"
+                                 pa:placeholder="ISBN" required="true"
+                                 requiredMessage="El isbn es obligatorio">
+                    </h:inputText>
+                    <div><h:message for="isbn" /></div>
+                </div>
+                <div>
+                    <h:inputText id="titulo" value="#{ctrlLibros.libro.titulo}"
+                                 pa:placeholder="Titulo" required="true"
+                                 requiredMessage="Introduzca un título">
+                    </h:inputText>
+                    <div><h:message for="titulo" /></div>
+                </div>
+                <div>
+                    <h:inputText id="fecha" value="#{ctrlLibros.libro.fecha}"
+                                 pa:type="date">
+                        <f:convertDateTime type="localDate" pattern="yyyy/MM/dd" />
+                    </h:inputText>
+
+                    <div><h:message for="fecha" /></div>
+                </div>
+                <div>
+                    <h:inputText id="precio" value="#{ctrlLibros.libro.precio}"
+                                 pa:placeholder="Precio" required="true"
+                                 requiredMessage="Introduzca un precio">
+                    </h:inputText>
+                    <div><h:message for="precio" /></div>
+                </div>
+                <h:commandButton action="#{ctrlLibros.guarda()}" value="Modificar" />
+            </h:form>
+        </p:panel>
     </ui:define>
 
 </ui:composition>

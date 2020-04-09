@@ -9,4 +9,15 @@
     <welcome-file-list>
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
+    <data-source>
+        <name>java:global/jdbc/libros</name> <!-- JNDI resource -->
+        <class-name>org.h2.jdbcx.JdbcDataSource</class-name> <!-- Driver -->
+        <url>jdbc:h2:~/h2db/dawlibros;AUTO_SERVER=TRUE</url> <!--DB in user folder -->
+        <user>dawuser</user>
+        <password>dawuser</password>
+        <initial-pool-size>2</initial-pool-size>
+        <max-pool-size>10</max-pool-size>
+        <min-pool-size>5</min-pool-size>
+    </data-source>
+
 </web-app>

@@ -5,26 +5,55 @@
  */
 package uja.beans;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
  *
  * @author sjm00010
  */
+@Entity
 public class Libro {
+
+    @Id
+    @Pattern(regexp = "\\d{10}(\\d{3})?",
+            message = "El ISBN debe tener 10 o 13 dígitos")
     private String ISBN;
+
+    @Size(min = 2, max = 25,
+            message = "La longitud del título debe estar entre{min} y {max} caracteres")
     private String titulo;
-    private String fecha;
+
+    @Past(message = "La fecha debe ser anterior a hoy.")
+    @NotNull(message = "La fecha no puede estar vacía.")
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
+
+    @Min(value=0 , message = "El precio debe ser igual o mayor a 0")
+    private Integer precio;
 
     public Libro() {
         ISBN = null;
         titulo = null;
         fecha = null;
+        precio = null;
     }
 
-    public Libro(String isbn, String titulo, String fecha) {
+    public Libro(String isbn, String titulo, Date fecha, Integer precio) {
         this.ISBN = isbn;
         this.titulo = titulo;
         this.fecha = fecha;
-        
+        this.precio = precio;
     }
 
     /**
@@ -58,14 +87,33 @@ public class Libro {
     /**
      * @return the fecha
      */
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
+    }
+    
+    public String leerFecha() {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return dateFormat.format(this.fecha);
     }
 
     /**
      * @param fecha the fecha to set
      */
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    /**
+     * @return the precio
+     */
+    public Integer getPrecio() {
+        return precio;
+    }
+
+    /**
+     * @param precio the precio to set
+     */
+    public void setPrecio(Integer precio) {
+        this.precio = precio;
     }
 }

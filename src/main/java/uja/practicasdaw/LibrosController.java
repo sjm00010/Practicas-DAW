@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import uja.DAOs.LibrosDAO;
+import uja.DAOs.LibrosDAOJpa;
 import uja.beans.Libro;
 
 /**
@@ -28,7 +28,7 @@ public class LibrosController implements Serializable {
     private final Logger logger = Logger.getLogger(LibrosController.class.getName());
 
     @Inject
-    private LibrosDAO librosDAO;
+    private LibrosDAOJpa librosDAO;
 
     //View-Model
     private Libro libro;
@@ -65,22 +65,31 @@ public class LibrosController implements Serializable {
 
     public void recupera() {
         logger.info("Recuperando libro " + libro.getISBN());
-        libro = librosDAO.buscaIsbn(libro.getISBN());
+        libro = librosDAO.buscaId(libro.getISBN());
     }
 
     public void recupera(String isbn) {
-        libro = librosDAO.buscaIsbn(isbn);
+        libro = librosDAO.buscaId(isbn);
     }
 
     public String crea() {
-        logger.info("Guardando libro");
+        logger.info("Creando libro");
         librosDAO.crea(libro);
         return "detalle?faces-redirect=true&isbn=" + libro.getISBN();
     }
     
+    public String guarda() {
+        logger.info("Guardando libro");
+        librosDAO.guarda(libro);
+        return "detalle?faces-redirect=true&isbn=" + libro.getISBN();
+    }
+    
     public String detalle() {
-        logger.info("Detalle libro");
         return "libros/detalle?faces-redirect=true&isbn=" + busqueda;
+    }
+    
+    public String editar(String isbn) {
+        return "editar?isbn=" + isbn;
     }
 
     public void reset() {

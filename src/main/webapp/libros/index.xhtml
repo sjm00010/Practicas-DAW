@@ -22,6 +22,8 @@
                 <p:column>
                     <p:commandButton update="detalle" icon="pi pi-search"
                                      title="Detalle" action="#{ctrlLibros.recupera(l.ISBN)}"/>
+                    <p:button icon="pi pi-pencil"
+                              title="Editar" outcome="#{ctrlLibros.editar(l.ISBN)}"/>
                     <p:commandButton icon="pi pi-trash" title="Borrar"
                                      action="#{ctrlLibros.borra(l.ISBN)}"/>
                 </p:column>
