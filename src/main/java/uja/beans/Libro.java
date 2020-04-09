@@ -12,15 +12,19 @@ package uja.beans;
 public class Libro {
     private String ISBN;
     private String titulo;
+    private String fecha;
 
     public Libro() {
         ISBN = null;
         titulo = null;
+        fecha = null;
     }
 
-    public Libro(String isbn, String titulo) {
+    public Libro(String isbn, String titulo, String fecha) {
         this.ISBN = isbn;
         this.titulo = titulo;
+        this.fecha = fecha;
+        
     }
 
     /**
@@ -50,6 +54,18 @@ public class Libro {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    
-    
+
+    /**
+     * @return the fecha
+     */
+    public String getFecha() {
+        return fecha;
+    }
+
+    /**
+     * @param fecha the fecha to set
+     */
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
 }

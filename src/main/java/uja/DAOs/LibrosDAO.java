@@ -25,10 +25,11 @@ public class LibrosDAO {
         if (libros == null) {
             libros = new HashMap<>();
             libros.put("1234567890", new Libro("1234567890",
-                    "El Ingenioso Hidalgo Don Quijote de la Mancha"));
+                    "El Ingenioso Hidalgo Don Quijote de la Mancha", "1605"));
             libros.put("1234567891", new Libro("1234567891",
-                    "The definitive guide to JSF in Java EE 8"));
-            libros.put("1234567892", new Libro("1234567892", "Naruto, Season 1"));
+                    "The definitive guide to JSF in Java EE 8", "2018"));
+            libros.put("1234567892", new Libro("1234567892", "Naruto, Season 1",
+                    "2002"));
         }
     }
 

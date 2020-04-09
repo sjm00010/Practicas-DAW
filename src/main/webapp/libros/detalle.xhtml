@@ -1,26 +1,35 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>DAW</title>
-        <f:metadata>
-            <f:viewParam name="isbn" required="true"
-                         value="#{ ctrlLibros.libro.ISBN }"/>
-            <f:viewAction action="#{ ctrlLibros.recupera() }"/>
-        </f:metadata>
-    </h:head>
-    <h:body>
-        <h1>Detalle del libro</h1>
-        <section>
-            <div>
-                <b>ISBN:</b> #{ctrlLibros.libro.ISBN}
-            </div>
-            <div>
-                <b>Título: </b>#{ctrlLibros.libro.titulo}
-            </div>
-        </section>
-    </h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../WEB-INF/templates/layout.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:define name="content">
+        <h:head>
+            <title>DAW</title>
+            <f:metadata>
+                <f:viewParam name="isbn" required="true"
+                             value="#{ ctrlLibros.libro.ISBN }"/>
+                <f:viewAction action="#{ ctrlLibros.recupera() }"/>
+            </f:metadata>
+        </h:head>
+        
+        <h:body>
+            <h1>Detalle del libro</h1>
+            <section>
+                <div>
+                    <b>ISBN:</b> #{ctrlLibros.libro.ISBN}
+                </div>
+                <div>
+                    <b>Título: </b>#{ctrlLibros.libro.titulo}
+                </div>
+                <div>
+                    <b>Título: </b>#{ctrlLibros.libro.fecha}
+                </div>
+            </section>
+        </h:body>
+    </ui:define>
+</ui:composition>
 

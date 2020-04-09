@@ -41,12 +41,12 @@ public class LibrosController implements Serializable {
     }
 
     public Libro getLibro() {
-        logger.info("Recuperando libro " + libro.getISBN());
+        logger.info("Recuperando libro local");
         return libro;
     }
 
     public void setLibro(Libro libro) {
-        logger.info("Creando libro " + libro.getISBN());
+        logger.info("Creando libro local");
         this.libro = libro;
     }
 
