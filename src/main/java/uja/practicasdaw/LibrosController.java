@@ -6,6 +6,8 @@
 package uja.practicasdaw;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -23,13 +25,16 @@ import uja.beans.Libro;
 @ViewScoped
 public class LibrosController implements Serializable {
 
-    private final Logger logger = Logger.getLogger( LibrosController.class.getName() );
-    
+    private final Logger logger = Logger.getLogger(LibrosController.class.getName());
+
     @Inject
     private LibrosDAO librosDAO;
 
     //View-Model
     private Libro libro;
+    private String busqueda;
+    List<Libro> libros;
+    private List<Libro> subLibros;
 
     public LibrosController() {
     }
@@ -37,7 +42,10 @@ public class LibrosController implements Serializable {
     @PostConstruct
     private void init() {
         logger.info("Inicializando libro");
+        busqueda = null;
+        subLibros = new ArrayList<>();
         libro = new Libro();
+        libros = librosDAO.buscaTodos();
     }
 
     public Libro getLibro() {
@@ -52,11 +60,67 @@ public class LibrosController implements Serializable {
 
     public List<Libro> getLibros() {
         logger.info("Recuperando todos los libros");
-        return librosDAO.buscaTodos();
+        return libros;
     }
 
     public void recupera() {
         logger.info("Recuperando libro " + libro.getISBN());
         libro = librosDAO.buscaIsbn(libro.getISBN());
+    }
+
+    public void recupera(String isbn) {
+        libro = librosDAO.buscaIsbn(isbn);
+    }
+
+    public String crea() {
+        logger.info("Guardando libro");
+        librosDAO.crea(libro);
+        return "detalle?faces-redirect=true&isbn=" + libro.getISBN();
+    }
+    
+    public String detalle() {
+        logger.info("Detalle libro");
+        return "libros/detalle?faces-redirect=true&isbn=" + busqueda;
+    }
+
+    public void reset() {
+        libro = null;
+    }
+    
+    public String borra(String ISBN) {
+        logger.info("Borrando libro");
+        librosDAO.borra(ISBN);
+        return "index?faces-redirect=true";
+    }
+
+    /**
+     * @return the busqueda
+     */
+    public String getBusqueda() {
+        return busqueda;
+    }
+
+    /**
+     * @param busqueda the busqueda to set
+     */
+    public void setBusqueda(String busqueda) {
+        this.busqueda = busqueda;
+    }
+
+    /**
+     * @return the subLibros
+     */
+    public List<Libro> getSubLibros() {
+        return subLibros;
+    }
+    
+    public void buscaTitulo(String cadena){
+        subLibros.clear();
+        for (Iterator<Libro> iterator = libros.iterator(); iterator.hasNext();) {
+            Libro next = iterator.next();
+            if (next.getTitulo().contains(cadena)){
+                subLibros.add(next);
+            }
+        }
     }
 }

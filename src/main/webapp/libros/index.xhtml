@@ -4,20 +4,36 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 template="../WEB-INF/templates/layout.xhtml"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:daw="http://xmlns.jcp.org/jsf/composite/dawcomp"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
         <h1>Catálogo</h1>
         <p>Número de libros : #{ctrlLibros.libros.size()}</p>
-        <ul>
-            <ui:repeat var="l" value="#{ctrlLibros.libros}">
-                <li><b>#{l.ISBN}</b> #{l.titulo}
-                    <h:link value="Mostrar" outcome="detalle">
-                        <f:param name="isbn" value="${l.ISBN}"/>
-                    </h:link>
-                </li>
-            </ui:repeat>
-        </ul>
+        <h:form>
+            <p:dataTable var="l" value="#{ctrlLibros.libros}">
+                <p:column headerText="ISBN" sortBy="#{l.ISBN}">
+                    #{l.ISBN}
+                </p:column>
+                <p:column headerText="Título" sortBy="#{l.titulo}">
+                    #{l.titulo}
+                </p:column>
+                <p:column>
+                    <p:commandButton update="detalle" icon="pi pi-search"
+                                     title="Detalle" action="#{ctrlLibros.recupera(l.ISBN)}"/>
+                    <p:commandButton icon="pi pi-trash" title="Borrar"
+                                     action="#{ctrlLibros.borra(l.ISBN)}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <h:panelGroup id="detalle" layout="block" >
+            <h:form rendered="#{not empty(ctrlLibros.libro.ISBN)}">
+                <h3>Detalle del libro</h3>
+                <daw:libro libro="#{ctrlLibros.libro}" />
+                <h:commandButton value="Cerrar" action="#{ctrlLibros.reset()}" />
+            </h:form>
+        </h:panelGroup>
     </ui:define>
 
 </ui:composition>

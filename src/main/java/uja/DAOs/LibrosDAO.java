@@ -41,4 +41,13 @@ public class LibrosDAO {
         return libros.values().stream().collect(Collectors.toList());
     }
 
+    public void crea(Libro libro) {
+        if (libros != null) 
+            libros.put(libro.getISBN(), libro);
+    }
+    
+    public void borra(String ISBN) {
+        if (ISBN != null) 
+            libros.remove(ISBN);
+    }
 }

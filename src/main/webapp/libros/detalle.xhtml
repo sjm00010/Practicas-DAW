@@ -4,11 +4,11 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 template="../WEB-INF/templates/layout.xhtml"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:daw="http://xmlns.jcp.org/jsf/composite/dawcomp">
     
     <ui:define name="content">
         <h:head>
-            <title>DAW</title>
             <f:metadata>
                 <f:viewParam name="isbn" required="true"
                              value="#{ ctrlLibros.libro.ISBN }"/>
@@ -19,16 +19,12 @@
         <h:body>
             <h1>Detalle del libro</h1>
             <section>
-                <div>
-                    <b>ISBN:</b> #{ctrlLibros.libro.ISBN}
-                </div>
-                <div>
-                    <b>Título: </b>#{ctrlLibros.libro.titulo}
-                </div>
-                <div>
-                    <b>Título: </b>#{ctrlLibros.libro.fecha}
-                </div>
+                <daw:libro libro="#{ctrlLibros.libro}"/>
             </section>
+            <h:form>
+                <h:commandButton value="Borrar" action="#{ctrlLibros.borra(ctrlLibros.libro.ISBN)}" />
+            </h:form>
+                
         </h:body>
     </ui:define>
 </ui:composition>

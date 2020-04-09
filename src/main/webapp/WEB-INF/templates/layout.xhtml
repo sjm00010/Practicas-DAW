@@ -9,15 +9,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="/css/default.css"/>
         <h:outputStylesheet name="/css/cssLayout.css"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
         <title>DAW</title>
     </h:head>
 
     <!--No funciona el cambio de color-->
-    <h:body style="background-color: #{prefs.color} }">
+    <h:body style="background-color: #{prefs.color}">
         <header>
             <ui:insert name="top">
                 <h:link outcome="/index">
-                    <h:graphicImage value="#{resource['images:logo.png']}" alt="logo"/>
+                    <h:graphicImage library="images" name="logo.png" alt="logo"/>
                 </h:link>
                 <h:form>
                     <p>Seleccione el color de fondo</p>
@@ -25,8 +26,7 @@
                         <f:selectItems id="colorId" value="#{prefs.colores}" var="color"
                                        itemLabel="#{color}" itemValue="#{color}" />
                     </h:selectOneMenu>
-                    <h:button role="submit" value="Cambiar"/>
-
+                    <h:commandButton value="Cambiar" action="#{prefs.cambiaColor()}"/>
                 </h:form>
                 <h1>Gestión de biblioteca</h1>
             </ui:insert>

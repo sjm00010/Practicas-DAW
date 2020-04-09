@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/templates/layout.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <h:form>
+            <h:inputText id="bus" label="Buscar libro" pa:placeholder="Título" value="#{ctrlLibros.busqueda}"
+                         required="true" requiredMessage="La busqueda no puede estar vacía"/>
+            <p:commandButton update="lista" icon="pi pi-search"
+                             title="Buscar" action="#{ctrlLibros.buscaTitulo(ctrlLibros.busqueda)}"/>
+        </h:form>
+        <h:message for="bus"/>
+        <h:panelGroup id="lista" layout="block" >
+            <h:form rendered="#{ctrlLibros.subLibros.size() != 0}">
+                <h3>Resultados de la busqueda</h3>
+                <p:dataTable var="l" value="#{ctrlLibros.subLibros}">
+                    <p:column headerText="ISBN" sortBy="#{l.ISBN}">
+                        #{l.ISBN}
+                    </p:column>
+                    <p:column headerText="Título" sortBy="#{l.titulo}">
+                        #{l.titulo}
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

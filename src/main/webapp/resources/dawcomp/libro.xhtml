@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="libro" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:panel>
+            <p:graphicImage name="#{cc.attrs.libro.ISBN}.png" library="portadas" width="300px" height="400px"/>
+            <article>
+                <div>
+                    <b>ISBN: </b> #{cc.attrs.libro.ISBN}
+                </div>
+                <div>
+                    <b>Título: </b> #{cc.attrs.libro.titulo}
+                </div>
+                <div>
+                    <b>Año de publicación: </b> #{cc.attrs.libro.fecha}
+                </div>
+            </article>
+        </p:panel>
+    </cc:implementation>
+</html>
