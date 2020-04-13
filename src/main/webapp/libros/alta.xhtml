@@ -7,22 +7,26 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
+        <script src="https://code.jquery.com/jquery-3.4.1.js"
+                        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+                        crossorigin="anonymous"/>
+        <h:outputScript library="js" name="verifica.js"/>
         <h1>Alta de libro</h1>
         <!--<h:messages/>-->
-        <h:form>
+        <h:form id="form" onsubmit="validarFormulario(event)">
             <div>
                 <h:inputText id="isbn" value="#{ctrlLibros.libro.ISBN}"
                              p:placeholder="ISBN" required="true"
                              requiredMessage="El isbn es obligatorio">
                 </h:inputText>
-                <div><h:message for="isbn" /></div>
+                <p id="errIsbn"><h:message for="isbn" /></p>
             </div>
             <div>
                 <h:inputText id="titulo" value="#{ctrlLibros.libro.titulo}"
                              p:placeholder="Titulo" required="true"
                              requiredMessage="Introduzca un título">
                 </h:inputText>
-                <div><h:message for="titulo" /></div>
+                <p id="errTitulo"><h:message for="titulo" /></p>
             </div>
             <div>
                 <h:inputText id="fecha" value="#{ctrlLibros.libro.fecha}"
@@ -30,14 +34,14 @@
                              requiredMessage="Introduzca un año">
                 </h:inputText>
 
-                <div><h:message for="fecha" /></div>
+                <p id="errFecha"><h:message for="fecha" /></p>
             </div>
             <div>
                 <h:inputText id="precio" value="#{ctrlLibros.libro.precio}"
                              p:placeholder="Precio" required="true"
                              requiredMessage="Introduzca un precio">
                 </h:inputText>
-                <div><h:message for="precio" /></div>
+                <p id="errPrecio"><h:message for="precio" /></p>
             </div>
             <h:commandButton action="#{ctrlLibros.crea()}" value="Alta" />
         </h:form>

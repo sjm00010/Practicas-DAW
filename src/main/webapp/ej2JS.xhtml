@@ -5,47 +5,22 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <head>
-        <script src="https://code.jquery.com/jquery-3.4.1.js"
-                integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-                crossorigin="anonymous"/>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"/>
-        <script type="module" src="resources/JS/ej2.js"/>
-        <script type="text/javasript">                     
-            $(document).ready(function() {
-                $('#sub').click(function(){
 
-                    var dni = $('#dni').val();
-                    var dni_regex = /^@(\w){1,15}$/;
-
-//                    console.log('Hola, se esta ejecutando JS');
-//                    console.log(dni);
-
-                    if (dni.length == 0) {
-                        $('#respuesta').text("* El campo de validación esta vacío *");
-                        $('#dni').focus();
-                        return false;
-                    }else if (!dni.match(dni_regex)) {
-                        $('#respuesta').text("* NO ES UN DNI *");
-                        $('#dni').focus();
-                        return false;
-                    }else{
-                        $('#respuesta').text("* ES UN DNI *");
-                    }
-                    $('#respuesta').text("* Validado sin resultados *");
-                })
-            });
-        </script>
     </head>
     <body>
         <ui:composition template="/WEB-INF/templates/layout.xhtml">
             <ui:define name="content">
+                <script src="https://code.jquery.com/jquery-3.4.1.js"
+                        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+                        crossorigin="anonymous"/>
+                <h:outputScript library="js" name="ej2.js"/>
+                
                 <h1>Validación de DNI</h1>
                 <p>Introduce tu DNI</p>
-                <h:form id="valida">
-                    <p:inputText id="dni" value="#{ctrlLibros.busqueda}"/>
-                    <p:button id="sub" value="Validar"/>
+                <h:form id="valida" >
+                    <p:inputText id="dni" onkeyup="validarFormulario(event)" autocomplete="off"/>
                 </h:form>
-                <p id="respuesta"></p>
+                <p id="respuesta">${respuesta}<h:message for="dni"/></p>
             </ui:define>
         </ui:composition>
     </body>

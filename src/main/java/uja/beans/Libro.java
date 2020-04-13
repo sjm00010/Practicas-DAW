@@ -5,16 +5,9 @@
  */
 package uja.beans;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -31,11 +24,11 @@ public class Libro {
     private String ISBN;
 
     @Size(min = 2, max = 25,
-            message = "La longitud del título debe estar entre{min} y {max} caracteres")
+            message = "La longitud del título debe estar entre {min} y {max} caracteres")
     private String titulo;
 
     @Size(min = 4, max = 4,
-            message = "El año debe ser YYYY")
+            message = "El año debe tener el formato YYYY")
     private String fecha;
 
     @Min(value=0 , message = "El precio debe ser igual o mayor a 0")
