@@ -7,13 +7,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <script src="https://code.jquery.com/jquery-3.4.1.js"
-                        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-                        crossorigin="anonymous"/>
-        <h:outputScript library="js" name="verifica.js"/>
+        <h:outputScript library="js" name="libros.js"/>
+
         <h1>Alta de libro</h1>
         <!--<h:messages/>-->
-        <h:form id="form" onsubmit="validarFormulario(event)">
+        <h:form id="alta">
             <div>
                 <h:inputText id="isbn" value="#{ctrlLibros.libro.ISBN}"
                              p:placeholder="ISBN" required="true"
@@ -43,7 +41,27 @@
                 </h:inputText>
                 <p id="errPrecio"><h:message for="precio" /></p>
             </div>
-            <h:commandButton action="#{ctrlLibros.crea()}" value="Alta" />
+            <h:commandButton value="Alta" onclick="$('#exampleModal').modal('show');"/>
+            <!--Modal-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Quieres guardar el libro?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <h:commandButton action="#{ctrlLibros.crea()}" type="button" class="btn btn-primary">Guardar</h:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </h:form>
     </ui:define>
 

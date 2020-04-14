@@ -21,18 +21,18 @@ Expresiones regulares :
 a. Validar una cuenta de twitter
     - ^@(\w){1,15}$
 b. Un código postal
-    - \d{5}
+    - ^\d{5}$
 c. Validar una dirección IP
     - ^((\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])$
 d. Validar un nombre de persona: nombre apellido1 apellido2
     - ^[a-z ]+$
 e. Validar una fecha: dia-mes-año
-    - ((0[1-9]|[12]\d|3[01])-(0[1-9]|1[0-2])-[12]\d{3})
+    - ^((0[1-9]|[12]\d|3[01])-(0[1-9]|1[0-2])-[12]\d{3})$
 f. Validar un correo electrónico
-    - [a-zA-Z0-9._+-]+@[a-zA-Z]+\\.[a-zA-Z.]{2,}
+    - ^[a-zA-Z0-9._+-]+@[a-zA-Z]+\\.[a-zA-Z.]{2,}$
 g. Validar un número complejo
     - 
 h. Validar un formato de matrícula de un vehículo
-    - (^\d{4}[ -][A-Z]{3})
+    - ^\d{4}[ -][A-Z]{3}$
 i. Validar un nif (solo formato)
-    - \\d{8}[A-Z]
+    - ^\d{8}[A-Z]$

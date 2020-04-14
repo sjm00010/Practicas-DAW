@@ -9,26 +9,34 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
+        <script src="https://code.jquery.com/jquery-3.4.1.js"
+                integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+                crossorigin="anonymous"/>
+        <h:outputScript library="js" name="libros.js"/>
         <h1>Catálogo</h1>
         <p>Número de libros : #{ctrlLibros.libros.size()}</p>
-        <h:form>
-            <p:dataTable var="l" value="#{ctrlLibros.libros}">
-                <p:column headerText="ISBN" sortBy="#{l.ISBN}">
-                    #{l.ISBN}
-                </p:column>
-                <p:column headerText="Título" sortBy="#{l.titulo}">
-                    #{l.titulo}
-                </p:column>
-                <p:column>
+        <p:dataTable var="l" value="#{ctrlLibros.libros}">
+            <p:column headerText="ISBN" sortBy="#{l.ISBN}">
+                #{l.ISBN}
+            </p:column>
+            <p:column headerText="Título" sortBy="#{l.titulo}">
+                #{l.titulo}
+            </p:column>
+            <p:column>
+                <h:form>
                     <p:commandButton update="detalle" icon="pi pi-search"
                                      title="Detalle" action="#{ctrlLibros.recupera(l.ISBN)}"/>
+                </h:form>
+                <h:form>
                     <p:button icon="pi pi-pencil"
                               title="Editar" outcome="#{ctrlLibros.editar(l.ISBN)}"/>
-                    <p:commandButton icon="pi pi-trash" title="Borrar"
+                </h:form>
+                <h:form onsubmit="borrar(event)">
+                    <h:commandButton value="Borrar"  
                                      action="#{ctrlLibros.borra(l.ISBN)}"/>
-                </p:column>
-            </p:dataTable>
-        </h:form>
+                </h:form>
+            </p:column>
+        </p:dataTable>
         <h:panelGroup id="detalle" layout="block" >
             <h:form rendered="#{not empty(ctrlLibros.libro.ISBN)}">
                 <h3>Detalle del libro</h3>
