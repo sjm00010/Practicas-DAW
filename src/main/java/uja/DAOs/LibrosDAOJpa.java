@@ -50,7 +50,8 @@ public class LibrosDAOJpa {
             em.persist(l);
             creado = true;
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            logger.log(Level.INFO,"Ya existe un libro con ese ISBN");
+//            logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
         return creado;
     }

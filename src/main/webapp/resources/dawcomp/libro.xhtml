@@ -11,22 +11,28 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <p:panel>
-            <p:graphicImage name="#{cc.attrs.libro.ISBN}.png" library="portadas" width="300px" height="400px"/>
-            <article>
-                <div>
-                    <b>ISBN: </b> #{cc.attrs.libro.ISBN}
+        <div class="card" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <p:graphicImage class="card-img" name="#{cc.attrs.libro.ISBN}.png" library="portadas" height="300px"/>
                 </div>
-                <div>
-                    <b>Título: </b> #{cc.attrs.libro.titulo}
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div>
+                            <b>ISBN: </b> #{cc.attrs.libro.ISBN}
+                        </div>
+                        <div>
+                            <b>Título: </b> #{cc.attrs.libro.titulo}
+                        </div>
+                        <div>
+                            <b>Año de publicación: </b> #{cc.attrs.libro.fecha}
+                        </div>
+                        <div>
+                            <b>Precio: </b> #{cc.attrs.libro.precio} €
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <b>Año de publicación: </b> #{cc.attrs.libro.fecha}
-                </div>
-                <div>
-                    <b>Precio: </b> #{cc.attrs.libro.precio} €
-                </div>
-            </article>
-        </p:panel>
+            </div>
+        </div>
     </cc:implementation>
 </html>

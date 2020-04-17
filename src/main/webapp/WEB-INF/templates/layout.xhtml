@@ -18,21 +18,24 @@
         <title>DAW</title>
     </h:head>
 
-    <h:body style="background-color: #{prefs.color}">
+    <h:body class="container" style="background-color: #{prefs.color}">
         <header>
             <ui:insert name="top">
-                <h:link outcome="/index">
-                    <h:graphicImage library="images" name="logo.png" alt="logo"/>
-                </h:link>
-                <h:form>
-                    <p>Seleccione el color de fondo</p>
-                    <h:selectOneMenu id="col" value="#{prefs.color}" >
-                        <f:selectItems id="colorId" value="#{prefs.colores}" var="color"
-                                       itemLabel="#{color}" itemValue="#{color}" />
-                    </h:selectOneMenu>
-                    <h:commandButton value="Cambiar" action="#{prefs.cambiaColor()}"/>
-                </h:form>
-                <h1>Gestión de biblioteca</h1>
+                    <div class="row justify-content-between my-4">
+                        <h:link outcome="/index" class="col-4">
+                            <h:graphicImage library="images" name="logo.png" alt="logo"/>
+                        </h:link>
+                        <h:form class="col-3 align-self-center">
+                            <p>Seleccione el color de fondo</p>
+                            <h:selectOneMenu id="col" value="#{prefs.color}" >
+                                <f:selectItems id="colorId" value="#{prefs.colores}" var="color"
+                                               itemLabel="#{color}" itemValue="#{color}" />
+                            </h:selectOneMenu>
+                            <h:commandButton value="Cambiar" action="#{prefs.cambiaColor()}"/>
+                        </h:form> 
+                    </div>
+
+                    <h1>Gestión de biblioteca</h1>
             </ui:insert>
         </header>
         <main>

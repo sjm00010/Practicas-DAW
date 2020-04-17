@@ -23,18 +23,20 @@
                 #{l.titulo}
             </p:column>
             <p:column>
-                <h:form>
-                    <p:commandButton update="detalle" icon="pi pi-search"
-                                     title="Detalle" action="#{ctrlLibros.recupera(l.ISBN)}"/>
-                </h:form>
-                <h:form>
-                    <p:button icon="pi pi-pencil"
-                              title="Editar" outcome="#{ctrlLibros.editar(l.ISBN)}"/>
-                </h:form>
-                <h:form onsubmit="borrar(event)">
-                    <h:commandButton value="Borrar"  
-                                     action="#{ctrlLibros.borra(l.ISBN)}"/>
-                </h:form>
+                <div class="row">
+                    <h:form class="col">
+                        <p:commandButton update="detalle" icon="pi pi-search"  class="btn"
+                                         title="Detalle" action="#{ctrlLibros.recupera(l.ISBN)}"/>
+                    </h:form>
+                    <h:form class="col">
+                        <p:button icon="pi pi-pencil" value="Editar" class="btn"
+                                  title="Editar" outcome="#{ctrlLibros.editar(l.ISBN)}"/>
+                    </h:form>
+                    <h:form class="col" onsubmit="borrar(event)">
+                        <h:commandButton value=" 🗑 Borrar" class="btn btn-danger"
+                                         action="#{ctrlLibros.borra(l.ISBN)}"/>
+                    </h:form>
+                </div>
             </p:column>
         </p:dataTable>
         <h:panelGroup id="detalle" layout="block" >

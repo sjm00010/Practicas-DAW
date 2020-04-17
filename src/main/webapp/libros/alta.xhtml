@@ -11,55 +11,43 @@
 
         <h1>Alta de libro</h1>
         <!--<h:messages/>-->
-        <h:form id="alta">
-            <div>
-                <h:inputText id="isbn" value="#{ctrlLibros.libro.ISBN}"
-                             p:placeholder="ISBN" required="true"
-                             requiredMessage="El isbn es obligatorio">
-                </h:inputText>
-                <p id="errIsbn"><h:message for="isbn" /></p>
-            </div>
-            <div>
-                <h:inputText id="titulo" value="#{ctrlLibros.libro.titulo}"
-                             p:placeholder="Titulo" required="true"
-                             requiredMessage="Introduzca un título">
-                </h:inputText>
-                <p id="errTitulo"><h:message for="titulo" /></p>
-            </div>
-            <div>
-                <h:inputText id="fecha" value="#{ctrlLibros.libro.fecha}"
-                             p:placeholder="Año de publicación" required="true"
-                             requiredMessage="Introduzca un año">
-                </h:inputText>
+        <h:form id="alta" class="form-row justify-content-center">
+            <div class="col-6 row">
+                <div class="col-12">
+                    <h:inputText id="isbn" value="#{ctrlLibros.libro.ISBN}"
+                                 p:placeholder="ISBN" required="true"
+                                 class="form-control"
+                                 requiredMessage="El isbn es obligatorio">
+                    </h:inputText>
+                    <p id="errIsbn"><h:message for="isbn" /></p>
+                </div>
+                <div class="col-12">
+                    <h:inputText id="titulo" value="#{ctrlLibros.libro.titulo}"
+                                 p:placeholder="Titulo" required="true"
+                                 class="form-control"
+                                 requiredMessage="Introduzca un título">
+                    </h:inputText>
+                    <p id="errTitulo"><h:message for="titulo" /></p>
+                </div>
+                <div class="col-12">
+                    <h:inputText id="fecha" value="#{ctrlLibros.libro.fecha}"
+                                 p:placeholder="Año de publicación" required="true"
+                                 class="form-control"
+                                 requiredMessage="Introduzca un año">
+                    </h:inputText>
 
-                <p id="errFecha"><h:message for="fecha" /></p>
-            </div>
-            <div>
-                <h:inputText id="precio" value="#{ctrlLibros.libro.precio}"
-                             p:placeholder="Precio" required="true"
-                             requiredMessage="Introduzca un precio">
-                </h:inputText>
-                <p id="errPrecio"><h:message for="precio" /></p>
-            </div>
-            <h:commandButton value="Alta" onclick="$('#exampleModal').modal('show');"/>
-            <!--Modal-->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>¿Quieres guardar el libro?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <h:commandButton action="#{ctrlLibros.crea()}" type="button" class="btn btn-primary">Guardar</h:commandButton>
-                        </div>
-                    </div>
+                    <p id="errFecha"><h:message for="fecha" /></p>
+                </div>
+                <div class="col-12">
+                    <h:inputText id="precio" value="#{ctrlLibros.libro.precio}"
+                                 p:placeholder="Precio" required="true"
+                                 class="form-control"
+                                 requiredMessage="Introduzca un precio">
+                    </h:inputText>
+                    <p id="errPrecio"><h:message for="precio" /></p>
+                </div>
+                <div class="col-12">
+                    <h:commandButton value="Alta" class="btn btn-success btn-block" action="#{ctrlLibros.crea()}"/>
                 </div>
             </div>
         </h:form>

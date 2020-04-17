@@ -84,8 +84,10 @@ public class LibrosController implements Serializable {
 
     public String crea() {
         logger.info("Creando libro");
-        librosDAO.crea(libro);
-        return "detalle?faces-redirect=true&isbn=" + libro.getISBN();
+        if(librosDAO.crea(libro))
+            return "detalle?faces-redirect=true&isbn=" + libro.getISBN();
+        else
+            return null;
     }
 
     public String guarda() {

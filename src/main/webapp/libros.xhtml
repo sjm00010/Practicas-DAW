@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/templates/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:daw="http://xmlns.jcp.org/jsf/composite/dawcomp">
+
+    <ui:define name="content">
+        <h:outputScript library="js" name="libros.app.js"/>
+
+        <h1>Catálogo</h1>
+        <ul id="lista">
+            <!-- listado de libros -->
+        </ul>
+
+        <h1>Alta de libro</h1>
+        <div id="errores" class="text-danger mb-3"><!-- Mensajes de error --></div>
+        <h:form id="fAlta" onsubmit="ctrl.alta(event)" >
+            <div><label >ISBN:  <h:inputText id="isbn" /> </label></div>
+            <div><label>Titulo: <h:inputText id="titulo"/></label></div>
+            <h:commandButton type="Submit" value="Guardar"/>
+            <input type="Reset" value="Limpiar"/>
+        </h:form>
+        <h:panelGroup id="paneldetalle" style="display: none" >
+            <h3>Detalle del libro</h3>
+            <div class="card mb-3 pb-0" style="max-width: 540px;">
+                <div class="card-body">
+                    <div>
+                        <b>ISBN: </b><p id="detalleIsbn"></p> 
+                    </div>
+                    <div>
+                        <b>Título: </b><p id="detalleTitulo"></p>
+                    </div>
+                    <div>
+                        <b>Año de publicación: </b><p id="detalleFecha"></p>
+                    </div>
+                    <div>
+                        <b>Precio: </b><p id="detallePrecio"></p>
+                    </div>
+                </div>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>

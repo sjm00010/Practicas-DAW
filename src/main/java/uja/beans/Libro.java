@@ -37,8 +37,8 @@ public class Libro {
     public Libro() {
         ISBN = null;
         titulo = null;
-        fecha = null;
-        precio = null;
+        fecha = "XXXX";
+        precio = 0;
     }
 
     public Libro(String isbn, String titulo, String fecha, Integer precio) {
