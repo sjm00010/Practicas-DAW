@@ -31,7 +31,6 @@ class LibrosCtrl {
             let li = document.createElement('li');
             li.innerHTML = `<b>ISBN :</b> ${libro.ISBN} -- <b>Título : </b>${libro.titulo}
                 <button onclick="ctrl.detalleLibro(${libro.ISBN})">Detalles</button>
-                <a href="" onclick="ctrl.guarda(${libro.ISBN})">Modificar</a>
                 <a href="" onclick="ctrl.borra(${libro.ISBN},event)">Borrar</a>`;
             ul.appendChild(li);
         });
@@ -51,9 +50,10 @@ class LibrosCtrl {
             if (enviado === true) {
                 console.log(`Confirmado detalle de libro: ${response.ISBN}`);
                 el('#detalleIsbn').innerHTML = `${response.ISBN}`;
-                el('#detalleTitulo').innerHTML = `${response.titulo}`;
+                el('#detalleTitulo').value = `${response.titulo}`;
                 el('#detalleFecha').innerHTML = `${response.fecha}`;
                 el('#detallePrecio').innerHTML = `${response.precio} €`;
+                el('#guardar').innerHTML = `<a href="" onclick="ctrl.guarda(${response.ISBN},${response.fecha},${response.precio})">Guardar</a>`;
                 panel.style.display = "block";
             } else { //show bean-validation errors
                 console.warn(response);
@@ -70,12 +70,15 @@ class LibrosCtrl {
         });
     }
 
-    guarda(isbn) {
+    guarda(isbn, f, p) {
         let enviado = false;
-        let titulo = window.prompt('Introduce un nuevo título');
+//        let titulo = window.prompt('Introduce un nuevo título');
+        let titulo = el('#detalleTitulo').value;
         let libro = {
             ISBN: isbn,
-            titulo: titulo
+            titulo: titulo,
+            fecha: f,
+            precio: p
         };
         return fetch(`${this.srvUrl}/${isbn}`, {
             method: 'PUT',
