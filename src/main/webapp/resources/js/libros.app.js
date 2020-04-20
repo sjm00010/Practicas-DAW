@@ -29,23 +29,24 @@ class LibrosCtrl {
         ul.innerHTML = '';
         this.libros.forEach(libro => {
             let li = document.createElement('li');
-            li.innerHTML = `<b>ISBN :</b> ${libro.ISBN} -- <b>Título : </b>${libro.titulo} 
-                <a href="" onclick="ctrl.borra(${libro.ISBN},event)">Borrar</a>
-                <button onclick="ctrl.detalleLibro(${libro.ISBN})">Detalles</button>`;
+            li.innerHTML = `<b>ISBN :</b> ${libro.ISBN} -- <b>Título : </b>${libro.titulo}
+                <button onclick="ctrl.detalleLibro(${libro.ISBN})">Detalles</button>
+                <a href="" onclick="ctrl.guarda(${libro.ISBN})">Modificar</a>
+                <a href="" onclick="ctrl.borra(${libro.ISBN},event)">Borrar</a>`;
             ul.appendChild(li);
         });
     }
-    
+
     detalleLibro(isbn) {
         let panel = el('#paneldetalle');
         let enviado = false;
         return fetch(this.srvUrl + "/" + isbn)
-          .then(response => {
-            if (response.ok) {
-                enviado = true; //libro accepted in server
-            } //else bean-validation errors!
-            return response.json();
-        }).then(response => {
+                .then(response => {
+                    if (response.ok) {
+                        enviado = true; //libro accepted in server
+                    } //else bean-validation errors!
+                    return response.json();
+                }).then(response => {
             let error = [];
             if (enviado === true) {
                 console.log(`Confirmado detalle de libro: ${response.ISBN}`);
@@ -53,7 +54,7 @@ class LibrosCtrl {
                 el('#detalleTitulo').innerHTML = `${response.titulo}`;
                 el('#detalleFecha').innerHTML = `${response.fecha}`;
                 el('#detallePrecio').innerHTML = `${response.precio} €`;
-                panel.style.display="block";
+                panel.style.display = "block";
             } else { //show bean-validation errors
                 console.warn(response);
                 for (var i = 0; i < response.length; i++) {
@@ -63,9 +64,47 @@ class LibrosCtrl {
             el('#errores').innerHTML = error;
             return enviado;
         }).catch(ex => { //Network error
-                el('#errores').innerHTML = "Error en conexión";
-                console.error("Error en conexión");
-                return enviado;
+            el('#errores').innerHTML = "Error en conexión";
+            console.error("Error en conexión");
+            return enviado;
+        });
+    }
+
+    guarda(isbn) {
+        let enviado = false;
+        let titulo = window.prompt('Introduce un nuevo título');
+        let libro = {
+            ISBN: isbn,
+            titulo: titulo
+        };
+        return fetch(`${this.srvUrl}/${isbn}`, {
+            method: 'PUT',
+            body: JSON.stringify(libro),
+            headers: {
+                'Content-type': 'application/json',
+                'accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                enviado = true; //libro accepted in server
+            } //else bean-validation errors!
+            return response.json();
+        }).then(response => {
+            let error = [];
+            if (enviado === true) {
+                console.log(`Confirmada modificación del titulo del libro: ${response.ISBN}`);
+            } else { //show bean-validation errors
+                console.warn(response);
+                for (var i = 0; i < response.length; i++) {
+                    error.push(response[i].message);
+                }
+            }
+            el('#errores').innerHTML = '<ul>';
+            for (var i = 0; i < error.length; i++) {
+                el('#errores').innerHTML += '<li>' + error[i] + '</li>';
+            }
+            el('#errores').innerHTML += '</ul>';
+            return enviado;
         });
     }
 
@@ -91,9 +130,9 @@ class LibrosCtrl {
             el('#errores').innerHTML = error;
             return enviado;
         }).catch(ex => { //Network error
-                el('#errores').innerHTML = "Error en conexión";
-                console.error("Error en conexión");
-                return enviado;
+            el('#errores').innerHTML = "Error en conexión";
+            console.error("Error en conexión");
+            return enviado;
         });
     }
 
