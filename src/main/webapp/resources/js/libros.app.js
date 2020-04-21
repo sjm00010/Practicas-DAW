@@ -53,7 +53,8 @@ class LibrosCtrl {
                 el('#detalleTitulo').value = `${response.titulo}`;
                 el('#detalleFecha').innerHTML = `${response.fecha}`;
                 el('#detallePrecio').innerHTML = `${response.precio} €`;
-                el('#guardar').innerHTML = `<a href="" onclick="ctrl.guarda(${response.ISBN},${response.fecha},${response.precio})">Guardar</a>`;
+                el('#guardar').innerHTML = `<button onclick="ctrl.modifica(${response.ISBN},${response.fecha},${response.precio}, event)">Guardar</button>`;
+                el('#guardar').innerHTML += `<button onclick="ctrl.cierraDetalle()">Cerrar</button>`;
                 panel.style.display = "block";
             } else { //show bean-validation errors
                 console.warn(response);
@@ -69,18 +70,31 @@ class LibrosCtrl {
             return enviado;
         });
     }
+    
+    cierraDetalle(){
+        el('#paneldetalle').style.display = "none";
+    }
 
-    guarda(isbn, f, p) {
-        let enviado = false;
-//        let titulo = window.prompt('Introduce un nuevo título');
-        let titulo = el('#detalleTitulo').value;
+    modifica(isbn, f, p, event) { //onsubmit handler
         let libro = {
             ISBN: isbn,
-            titulo: titulo,
             fecha: f,
             precio: p
         };
-        return fetch(`${this.srvUrl}/${isbn}`, {
+        console.log('modificación de libro : %s', libro.ISBN);
+        this.guarda(libro)
+                .then(enviado => {
+                    if (enviado) {
+                        this.cargaLibros();
+                    }
+                });
+    }
+
+    guarda(libro) {
+        let enviado = false;
+//        let titulo = window.prompt('Introduce un nuevo título');
+        libro.titulo = el('#detalleTitulo').value;
+        return fetch(`${this.srvUrl}/${libro.ISBN}`, {
             method: 'PUT',
             body: JSON.stringify(libro),
             headers: {
@@ -125,6 +139,7 @@ class LibrosCtrl {
             if (enviado === true) {
                 console.log('Confirmado borrado de libro: ' + isbn);
             } else { //show bean-validation errors
+                event.preventDefault();
                 console.warn(response);
                 for (var i = 0; i < response.length; i++) {
                     error.push(response[i].message);
