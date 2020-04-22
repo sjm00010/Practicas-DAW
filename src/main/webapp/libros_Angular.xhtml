@@ -8,43 +8,11 @@
 
     <ui:define name="content">
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.js"/>
-        <h:outputScript library="js" name="libros.app.js"/>
+        <script type="module" src="js/app-libros.module.js"></script>
 
-        <h1>Catálogo</h1>
-        <ul id="lista">
-            <!-- listado de libros -->
-        </ul>
-
-        <h1>Alta de libro</h1>
-        <div id="errores" class="text-danger mb-3"><!-- Mensajes de error --></div>
-        <h:form id="fAlta" onsubmit="ctrl.alta(event)" >
-            <div><label >ISBN:  <h:inputText id="isbn" /> </label></div>
-            <div><label>Titulo: <h:inputText id="titulo"/></label></div>
-            <h:commandButton type="Submit" value="Guardar"/>
-            <input type="Reset" value="Limpiar"/>
-        </h:form>
-        <h:panelGroup id="paneldetalle" style="display: none" >
-            <h3>Detalle del libro</h3>
-            <div class="card mb-3 pb-0" style="max-width: 540px;">
-                <div class="card-body">
-                    <div>
-                        <b>ISBN: </b><p id="detalleIsbn"></p> 
-                    </div>
-                    <div>
-                        <h:form id="fModif">
-                            <b>Título: </b><input id="detalleTitulo"/>
-                        </h:form>
-                    </div>
-                    <div>
-                        <b>Año de publicación: </b><p id="detalleFecha"></p>
-                    </div>
-                    <div>
-                        <b>Precio: </b><p id="detallePrecio"></p>
-                    </div>
-                    <div id="guardar"></div>
-                </div>
-            </div>
-        </h:panelGroup>
+        <div data-ng-app="libros.app">
+            <app-libros></app-libros>
+        </div>
     </ui:define>
 
 </ui:composition>

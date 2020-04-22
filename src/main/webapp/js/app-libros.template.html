@@ -1,0 +1,14 @@
+<h1>Listado de libros</h1>
+<ul class="list-group" id="idLibros">
+    <li class="list-group-item" ng-repeat='l in $ctrl.libros'>
+        <strong>{{l.isbn}}</strong> : {{l.titulo}}
+    </li>
+</ul>
+<h1>Alta de libro</h1>
+<div id="errores"><!-- Mensajes de error --></div>
+<form id="fAlta" method="POST" action="" >
+    <div><label>ISBN: <input name="isbn"> </label></div>
+    <div><label>Titulo:<input name="titulo" ></label></div>
+    <input name="enviar" type="Submit" value="Guardar"/>
+    <input name="enviar" type="Reset" value="Limpiar"/>
+</form>
