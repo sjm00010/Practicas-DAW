@@ -4,11 +4,18 @@
         <strong>{{l.isbn}}</strong> : {{l.titulo}}
     </li>
 </ul>
-<h1>Alta de libro</h1>
-<div id="errores"><!-- Mensajes de error --></div>
-<form id="fAlta" method="POST" action="" >
-    <div><label>ISBN: <input name="isbn"> </label></div>
-    <div><label>Titulo:<input name="titulo" ></label></div>
-    <input name="enviar" type="Submit" value="Guardar"/>
-    <input name="enviar" type="Reset" value="Limpiar"/>
+<h2>Alta de libro</h2>
+<form novalidate name="frmLibro" ng-submit='$ctrl.altaLibro()'>
+    <div class="text-danger" id="idErrores" >
+         <!--Mensajes de error--> 
+        <p ng-repeat='e in $ctrl.errorMsgs' class='text-alert'>{{e.message}}</p>
+    </div>
+
+    <input type="text" data-ng-pattern='/^\d{10}(\d{3})?$/' ng-model='$ctrl.libro.isbn'
+           name="isbn" placeholder="ISBN">
+    <span class="ng-invalid" data-ng-show='frmLibro.isbn.$dirty && frmLibro.isbn.$invalid'>
+        Solo códigos ISBN de 10 o 13 dígitos
+    </span>
+    <input type="text" ng-model='$ctrl.libro.titulo' name="titulo" placeholder="Título"/>
+    <input type="submit" data-ng-disabled='frmLibro.$invalid' name="Enviar"/>
 </form>
