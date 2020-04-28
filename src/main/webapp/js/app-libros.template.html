@@ -1,19 +1,19 @@
 <h1>Listado de libros</h1>
 <ul class="list-group" id="idLibros">
     <li class="list-group-item" ng-repeat='l in $ctrl.libros'>
-        <strong>{{l.isbn}}</strong> : {{l.titulo}}
+        <strong>{{l.ISBN}}</strong> : {{l.titulo}}
     </li>
 </ul>
-<h2>Alta de libro</h2>
+<h1>Alta de libro</h1>
 <form novalidate name="frmLibro" ng-submit='$ctrl.altaLibro()'>
     <div class="text-danger" id="idErrores" >
          <!--Mensajes de error--> 
         <p ng-repeat='e in $ctrl.errorMsgs' class='text-alert'>{{e.message}}</p>
     </div>
 
-    <input type="text" data-ng-pattern='/^\d{10}(\d{3})?$/' ng-model='$ctrl.libro.isbn'
+    <input type="text" data-ng-pattern='/^\d{10}(\d{3})?$/' ng-model='$ctrl.libro.ISBN'
            name="isbn" placeholder="ISBN">
-    <span class="ng-invalid" data-ng-show='frmLibro.isbn.$dirty && frmLibro.isbn.$invalid'>
+    <span class="ng-invalid" data-ng-show='frmLibro.isbn.$dirty && frmLibro.ISBN.$invalid'>
         Solo códigos ISBN de 10 o 13 dígitos
     </span>
     <input type="text" ng-model='$ctrl.libro.titulo' name="titulo" placeholder="Título"/>

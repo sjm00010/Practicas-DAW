@@ -5,17 +5,12 @@ class LibrosController {
         this.$http = $http;
         this.serviceUrl = 'api/libros';
         //init view-model
-        this.libros = [
-            {isbn: "1234567890", titulo: "El Ingenioso Hidalgo Don Quijote de la Mancha"},
-            {isbn: "1234567891", titulo: "The definitive guide to JSF in Java EE 8"},
-            {isbn: "1234567892", titulo: "Naruto, Season 1"}
-        ];
-        this.libro = {isbn: "", titulo: ""};
+        this.cargaLibros();
+        this.libro = {ISBN: "", titulo: "", fecha: "XXXX", precio: 0};
     }
 
     altaLibro() {
         this.libros.push(this.libro);
-        this.libro = {};
         this.$http.post(this.serviceUrl, this.libro)
                 .then(response => {
                     console.log("Libro enviado");
