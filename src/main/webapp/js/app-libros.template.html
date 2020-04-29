@@ -5,27 +5,39 @@
             <strong>{{l.ISBN}}</strong> : {{l.titulo}}
             <button class="btn-sm btn-danger" ng-click='$ctrl.borraLibro(l.ISBN)'>
                 Borrar</button>
+            <button class="btn-sm btn-primary" ng-click='$ctrl.editar(l.ISBN)'>
+                Editar</button>
         </form>
-        
-        
+
+
     </li>
 </ul>
-<h1>Alta de libro</h1>
+<h1 data-ng-show='!$ctrl.editando'>Alta de libro</h1>
+<h1 data-ng-show='$ctrl.editando'>Edición de libro</h1>
 <form novalidate name="frmLibro" ng-submit='$ctrl.altaLibro()' data-ng-show='$ctrl.visualiza'>
     <div class="text-danger" id="idErrores" >
-         <!--Mensajes de error--> 
+        <!--Mensajes de error--> 
         <p ng-repeat='e in $ctrl.errorMsgs' class='text-alert'>{{e.message}}</p>
     </div>
 
-    <input type="text" data-ng-pattern='/^\d{10}(\d{3})?$/' ng-model='$ctrl.libro.ISBN'
-           name="isbn" placeholder="ISBN">
-    <span class="ng-invalid" data-ng-show='frmLibro.isbn.$dirty && frmLibro.ISBN.$invalid'>
-        Solo códigos ISBN de 10 o 13 dígitos
-    </span>
-    <input type="text" ng-model='$ctrl.libro.titulo' name="titulo" placeholder="Título"/>
-    <input type="submit" data-ng-disabled='frmLibro.$invalid' name="Enviar"/>
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <label class="h5">ISBN :</label>
+                <input type="text" data-ng-pattern='/^\d{10}(\d{3})?$/' ng-model='$ctrl.libro.ISBN'
+                       name="ISBN" placeholder="ISBN" data-ng-disabled='$ctrl.editando'>
+                <span class="ng-invalid" data-ng-show='frmLibro.ISBN.$dirty && frmLibro.ISBN.$invalid'>
+                    Solo códigos ISBN de 10 o 13 dígitos</span>
+            </div>
+            <div>
+                <label class="h5">Título:</label>
+                <input type="text" ng-model='$ctrl.libro.titulo' name="titulo" placeholder="Título"/>
+            </div>
+            <input type="submit" data-ng-disabled='frmLibro.$invalid' name="Enviar"/>
+        </div>
+    </div>
 </form>
-<div data-ng-show='! $ctrl.visualiza'>
-    <button class="btn btn-success" ng-click='$ctrl.visualizaForm()'>
-                Nuevo libro</button>
+<div data-ng-show='!$ctrl.visualiza'>
+    <button class="btn btn-success my-3" ng-click='$ctrl.visualizaForm()'>
+        Nuevo libro</button>
 </div>
