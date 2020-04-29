@@ -1,11 +1,17 @@
 <h1>Listado de libros</h1>
 <ul class="list-group" id="idLibros">
     <li class="list-group-item" ng-repeat='l in $ctrl.libros'>
-        <strong>{{l.ISBN}}</strong> : {{l.titulo}}
+        <form class="my-0">
+            <strong>{{l.ISBN}}</strong> : {{l.titulo}}
+            <button class="btn-sm btn-danger" ng-click='$ctrl.borraLibro(l.ISBN)'>
+                Borrar</button>
+        </form>
+        
+        
     </li>
 </ul>
 <h1>Alta de libro</h1>
-<form novalidate name="frmLibro" ng-submit='$ctrl.altaLibro()'>
+<form novalidate name="frmLibro" ng-submit='$ctrl.altaLibro()' data-ng-show='$ctrl.visualiza'>
     <div class="text-danger" id="idErrores" >
          <!--Mensajes de error--> 
         <p ng-repeat='e in $ctrl.errorMsgs' class='text-alert'>{{e.message}}</p>
@@ -19,3 +25,7 @@
     <input type="text" ng-model='$ctrl.libro.titulo' name="titulo" placeholder="Título"/>
     <input type="submit" data-ng-disabled='frmLibro.$invalid' name="Enviar"/>
 </form>
+<div data-ng-show='! $ctrl.visualiza'>
+    <button class="btn btn-success" ng-click='$ctrl.visualizaForm()'>
+                Nuevo libro</button>
+</div>
