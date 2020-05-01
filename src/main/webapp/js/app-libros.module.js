@@ -45,6 +45,7 @@ class LibrosController {
             method: 'GET',
             url: this.serviceUrl
         }).then(response => {
+            console.log("Libros cargados");
             this.libros = response.data;
         });
     }
@@ -68,7 +69,7 @@ class LibrosController {
         this.editando = true;
         this.$http.get(this.serviceUrl + '/' + isbn)
                 .then(response => {
-                    console.log("Editar libro");
+                    console.log("Editar libro", response.data.ISBN);
                     this.libro = response.data;
                     this.errorMsgs = [];
                 }).then(() => this.visualizaForm()
@@ -85,7 +86,28 @@ const appLibrosComponent = {
     controller: LibrosController
 };
 
+const catalogoComponent = {
+    bindings: {
+        datos: '<'
+    },
+    template: `
+    <h1>Listado de libros</h1>
+    <ul class="list-group" id="idLibros">
+        <li class="list-group-item" ng-repeat='l in $ctrl.datos'>
+            <form class="my-0">
+                <strong>{{l.ISBN}}</strong> : {{l.titulo}}
+                <button class="btn-sm btn-danger" ng-click='$ctrl.borraLibro(l.ISBN)'>
+                    Borrar</button>
+                <button class="btn-sm btn-primary" ng-click='$ctrl.editar(l.ISBN)'>
+                    Editar</button>
+            </form>
+        </li>
+    </ul>`,
+    controller: LibrosController
+};
+
 export const AppLibrosModule = angular
-        .module("libros.app", ['ngRoute'])
+        .module("libros.app", [])
+        .component("catalogo", catalogoComponent)
         .component("appLibros", appLibrosComponent)
         .name;

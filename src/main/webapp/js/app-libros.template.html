@@ -1,17 +1,5 @@
-<h1>Listado de libros</h1>
-<ul class="list-group" id="idLibros">
-    <li class="list-group-item" ng-repeat='l in $ctrl.libros'>
-        <form class="my-0">
-            <strong>{{l.ISBN}}</strong> : {{l.titulo}}
-            <button class="btn-sm btn-danger" ng-click='$ctrl.borraLibro(l.ISBN)'>
-                Borrar</button>
-            <button class="btn-sm btn-primary" ng-click='$ctrl.editar(l.ISBN)'>
-                Editar</button>
-        </form>
+<catalogo datos="$ctrl.libros"></catalogo>
 
-
-    </li>
-</ul>
 <h1 data-ng-show='!$ctrl.editando'>Alta de libro</h1>
 <h1 data-ng-show='$ctrl.editando'>Edición de libro</h1>
 <form novalidate name="frmLibro" ng-submit='$ctrl.altaLibro()' data-ng-show='$ctrl.visualiza'>
@@ -37,6 +25,7 @@
         </div>
     </div>
 </form>
+
 <div data-ng-show='!$ctrl.visualiza'>
     <button class="btn btn-success my-3" ng-click='$ctrl.visualizaForm()'>
         Nuevo libro</button>
