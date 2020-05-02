@@ -1,4 +1,6 @@
-<catalogo datos="$ctrl.libros"></catalogo>
+
+<catalogo datos="$ctrl.libros" seleccion='$ctrl.libro' edit="$ctrl.editando"></catalogo>
+
 
 <h1 data-ng-show='!$ctrl.editando'>Alta de libro</h1>
 <h1 data-ng-show='$ctrl.editando'>Edición de libro</h1>
@@ -22,11 +24,12 @@
                 <input type="text" ng-model='$ctrl.libro.titulo' name="titulo" placeholder="Título"/>
             </div>
             <input type="submit" data-ng-disabled='frmLibro.$invalid' name="Enviar"/>
+            <input type="Reset" data data-ng-click="$ctrl.borraLibro($ctrl.libro.ISBN)" value="Borrar"/>
         </div>
     </div>
 </form>
 
 <div data-ng-show='!$ctrl.visualiza'>
-    <button class="btn btn-success my-3" ng-click='$ctrl.visualizaForm()'>
+    <button class="btn btn-success my-3" ng-click='$ctrl.visualizaForm()' >
         Nuevo libro</button>
 </div>

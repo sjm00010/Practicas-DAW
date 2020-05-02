@@ -88,7 +88,9 @@ const appLibrosComponent = {
 
 const catalogoComponent = {
     bindings: {
-        datos: '<'
+        datos: '<',
+        seleccion: '=',
+        edit: '='
     },
     template: `
     <h1>Listado de libros</h1>
@@ -96,18 +98,15 @@ const catalogoComponent = {
         <li class="list-group-item" ng-repeat='l in $ctrl.datos'>
             <form class="my-0">
                 <strong>{{l.ISBN}}</strong> : {{l.titulo}}
-                <button class="btn-sm btn-danger" ng-click='$ctrl.borraLibro(l.ISBN)'>
-                    Borrar</button>
-                <button class="btn-sm btn-primary" ng-click='$ctrl.editar(l.ISBN)'>
+                <button class="btn-sm btn-primary" onclick="$ctrl.edit = true" ng-click='$ctrl.seleccion = l'>
                     Editar</button>
             </form>
         </li>
-    </ul>`,
-    controller: LibrosController
+    </ul>`
 };
 
 export const AppLibrosModule = angular
         .module("libros.app", [])
-        .component("catalogo", catalogoComponent)
         .component("appLibros", appLibrosComponent)
+        .component("catalogo", catalogoComponent)
         .name;
