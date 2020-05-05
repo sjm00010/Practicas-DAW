@@ -7,7 +7,6 @@ class LibrosController {
 
         //init view-model
         this.visualiza = true;
-        this.editando = false;
         this.libros = [];
         this.cargaLibros();
         this.libro = {ISBN: "", titulo: "", fecha: "XXXX", precio: 0};
@@ -86,27 +85,28 @@ const appLibrosComponent = {
     controller: LibrosController
 };
 
-const catalogoComponent = {
-    bindings: {
-        datos: '<',
-        seleccion: '=',
-        edit: '='
-    },
-    template: `
-    <h1>Listado de libros</h1>
-    <ul class="list-group" id="idLibros">
-        <li class="list-group-item" ng-repeat='l in $ctrl.datos'>
-            <form class="my-0">
-                <strong>{{l.ISBN}}</strong> : {{l.titulo}}
-                <button class="btn-sm btn-primary" onclick="$ctrl.edit = true" ng-click='$ctrl.seleccion = l'>
-                    Editar</button>
-            </form>
-        </li>
-    </ul>`
-};
+//const catalogoComponent = {
+//    bindings: {
+//        datos: '<',
+//        seleccion: '='
+//    },
+//    template: `
+//    <h1>Listado de libros</h1>
+//    <ul class="list-group" id="idLibros">
+//        <li class="list-group-item" ng-repeat='l in $ctrl.datos'>
+//            <form class="my-0">
+//                <strong>{{l.ISBN}}</strong> : {{l.titulo}}
+//                <button class="btn-sm btn-primary" ng-click='$ctrl.seleccion = l'>
+//                    Editar</button>
+//            </form>
+//        </li>
+//    </ul>`
+//};
+
+import {catalogoComponent} from "./catalogo.component.js";
 
 export const AppLibrosModule = angular
         .module("libros.app", [])
-        .component("appLibros", appLibrosComponent)
         .component("catalogo", catalogoComponent)
+        .component("appLibros", appLibrosComponent)
         .name;
